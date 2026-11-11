@@ -1,0 +1,8 @@
+import { BarChart3, ChevronDown, CreditCard, FileUp, Fingerprint, Gauge, LayoutDashboard, Settings, Shield, X } from 'lucide-react'
+
+const nav = [{ name: 'Overview', icon: LayoutDashboard }, { name: 'Fraud Detection', icon: Fingerprint }, { name: 'Batch Analysis', icon: FileUp }, { name: 'Transactions', icon: CreditCard }, { name: 'Analytics', icon: BarChart3 }, { name: 'Model Performance', icon: Gauge }]
+
+export default function Sidebar({ mobile, page, setPage, setMobile, health }) {
+  return (<aside className={`sidebar ${mobile?'show':''}`}><div className="brand"><div className="brandmark"><Shield size={20}/></div><span>sentinel<span className="branddot">.</span></span><button className="mobile-close" onClick={()=>setMobile(false)}><X size={18}/></button></div><div className="workspace"><div className="workspace-icon">N</div><div><b>Northstar Payments</b><small>Risk operations</small></div><ChevronDown size={15}/></div><div className="navlabel">WORKSPACE</div><nav>{nav.map(({name,icon:Icon})=><button key={name} className={`navitem ${page===name?'active':''}`} onClick={()=>{setPage(name);setMobile(false)}}><Icon size={17}/><span>{name}</span>{name==='Fraud Detection'&&<i className="navdot"/>}</button>)}</nav><div className="side-bottom"><div className="system-card"><span className="pulse"/><span>Detection engine</span><b>{health?.model_available?'Live':'No model'}</b><small>{health?.model_available?`v${health.model_version}`:'Train with Kaggle data'}</small></div><button className="navitem" onClick={()=>setPage('Settings')}><Settings size={17}/>Settings</button><div className="user"><div className="avatar">AR</div><div><b>Alex Rivera</b><small>Administrator</small></div><ChevronDown size={15}/></div></div></aside>)
+}
+
